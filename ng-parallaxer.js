@@ -76,10 +76,31 @@ angular.module('ngParallaxer', [])
     };
   }])
   .directive('ngPlxLayer', function() {
+
+    var propertyName = (function() {
+      var actual, possible = [
+        'transform',
+        'WebkitTransform',
+        'MozTransform',
+        'OTransform',
+        'msTransform'
+      ];
+
+      return function(elem) {
+        var i = 0;
+        while(actual === undefined && i < possible.length) {
+          if (elem[0].style[possible[i]] !== undefined) actual = possible[i];
+          else i++;
+        }
+        return actual;
+      };
+    })();
+
     return {
       restrict: 'A',
       require: "^^ngPlxRoot",
       link: function(scope, elem, attrs, ctrl) {
+        if (!propertyName(elem)) return;
 
         var ax = 0, ay = 0;
 
@@ -87,7 +108,7 @@ angular.module('ngParallaxer', [])
         ay = scope.$eval(attrs.ngPlxY);
 
         ctrl.register(function(dx,dy) {
-          elem[0].style.transform = "translate(" +
+          elem[0].style[propertyName()] = "translate(" +
             ax * dx + "px, " +
             ay * dy + "px)";
         });

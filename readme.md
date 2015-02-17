@@ -62,3 +62,4 @@ After that you can use the `ng-plx-root` and `ng-plx-layer` directives in your a
 - [ ] Exact `requestAnimationFrame` polyfill into module
 - [ ] Make the `mouse-events: none` requirement optional
 - [ ] Optimize the rendering loop; make it not render if target has been reached and nothing has changed.
+- [x] Vendor specific prefixes.
