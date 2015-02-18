@@ -108,9 +108,9 @@ angular.module('ngParallaxer', [])
         ay = scope.$eval(attrs.ngPlxY);
 
         ctrl.register(function(dx,dy) {
-          elem[0].style[propertyName()] = "translate(" +
+          elem[0].style[propertyName()] = "translate3d(" +
             ax * dx + "px, " +
-            ay * dy + "px)";
+            ay * dy + "px, 0)";
         });
       }
     };
